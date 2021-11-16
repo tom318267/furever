@@ -5,7 +5,7 @@ import Link from "next/link";
 const Homepage = () => {
   return (
     <Layout>
-      <div className="Homepage w-screen sm:h-screen relative font-asap">
+      <div className="Homepage w-screen sm:h-screen pb-24 relative font-asap">
         <div className="flex flex-col pt-24">
           <img className="ml-4 sm:hidden" src="/images/dogcat.svg" alt="" />
           <div className="flex justify-center relative bottom-5">
@@ -33,6 +33,8 @@ const Homepage = () => {
             </div>
           </div>
         </div>
+
+        {/* Mobile */}
 
         <div className="flex flex-col justify-center sm:hidden items-center">
           <h2 className="font-bellota text-[30px]">
