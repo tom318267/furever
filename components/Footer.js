@@ -81,7 +81,7 @@ const Footer = () => {
             <a
               key={item.name}
               href={item.href}
-              className="text-white hover:text-pink-300"
+              className="text-white hover:scale-125 hover:transition"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-8 w-6" aria-hidden="true" />

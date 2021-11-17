@@ -22,7 +22,7 @@ const PetCard = ({ pet }) => {
         </p>
         <div className="flex justify-end">
           <button className="px-8 py-2 mt-[16px] bg-purple-500 rounded-md text-white font-asap font-semibold hover:shadow-xl active:scale-90 transition duration-150">
-            Adopt
+            Adopt {pet.name}
           </button>
         </div>
       </div>

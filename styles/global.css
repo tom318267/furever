@@ -15,7 +15,7 @@
   }
 
   .adopt-heading {
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
   }
 
   .PetCard {
@@ -23,16 +23,7 @@
   }
 
   .Donate {
-    background: linear-gradient(
-      180deg,
-      #94b3fd 0%,
-      #9fbbfd 0.01%,
-      #cddcff 100%
-    );
-  }
-
-  .Donate h1 {
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(180deg, #94daff 0%, #cfeeff 100%), #ffffff;
   }
 
   .slide-in-right {
@@ -76,5 +67,16 @@
       transform: translateX(0);
       opacity: 1;
     }
+  }
+  .Contact {
+    background: linear-gradient(180deg, #d85cf6 0%, #ffffff 100%);
+  }
+
+  .contact-container {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .Login {
+    background: linear-gradient(180deg, #94daff 0%, #cfeeff 100%), #ffffff;
   }
 }

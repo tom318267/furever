@@ -15,7 +15,7 @@ const Donate = () => {
           </div>
 
           <div>
-            <h1 className="text-[40px] md:text-[53px] text-white font-medium">
+            <h1 className="text-[40px] md:text-[53px] text-black font-medium">
               Donate
             </h1>
             <p className="text-xl md:text-2xl">
@@ -23,7 +23,7 @@ const Donate = () => {
               Suspendisse donec lobortis non ornare sit venenatis massa sit
               cras. Venenatis augue gravida cras elementum elementum platea sed.
             </p>
-            <button className="px-8 py-2 bg-purple-500 w-full text-white text-xl md:text-2xl font-semibold rounded-md mt-[15px]">
+            <button className="px-8 py-2 bg-purple-500 w-full text-white text-xl md:text-2xl font-semibold rounded-md mt-[15px] hover:shadow-xl active:scale-90 transition duration-150">
               Donate Now
             </button>
           </div>
