@@ -1,8 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Link from "next/link";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import router from "next/router";
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const registerUser = (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Passwords don't match");
+      return;
+    }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userAuth) => {
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        }).then(async () => {
+          console.log(userAuth);
+          await setDoc(doc(db, "users", auth.currentUser.uid), {
+            name,
+            email,
+          });
+          router.push("/");
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Layout>
       <div className="Login min-h-full font-asap flex flex-col justify-center py-28 sm:px-6 lg:px-8">
@@ -14,7 +47,12 @@ const Register = () => {
 
         <div className="mt-8 px-8 sm:px-0 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+            <form
+              onSubmit={registerUser}
+              className="space-y-6"
+              action="#"
+              method="POST"
+            >
               <div>
                 <label
                   htmlFor="name"
@@ -24,6 +62,7 @@ const Register = () => {
                 </label>
                 <div className="mt-1">
                   <input
+                    onChange={(e) => setName(e.target.value)}
                     id="name"
                     name="name"
                     type="text"
@@ -43,6 +82,7 @@ const Register = () => {
                 </label>
                 <div className="mt-1">
                   <input
+                    onChange={(e) => setEmail(e.target.value)}
                     id="email"
                     name="email"
                     type="email"
@@ -62,6 +102,7 @@ const Register = () => {
                 </label>
                 <div className="mt-1">
                   <input
+                    onChange={(e) => setPassword(e.target.value)}
                     id="password"
                     name="password"
                     type="password"
@@ -82,6 +123,7 @@ const Register = () => {
                 </label>
                 <div className="mt-1">
                   <input
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     id="confirmPassword"
                     name="confirmPassword"
                     type="password"
@@ -95,6 +137,7 @@ const Register = () => {
 
               <div>
                 <button
+                  onClick={registerUser}
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-xl font-medium text-white bg-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >

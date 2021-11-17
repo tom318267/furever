@@ -37,7 +37,7 @@ export default function Navbar() {
                     <img
                       className={`${open ? "hidden" : ""} relative h-87 w-auto`}
                       src="/images/logo4.svg"
-                      alt="Joyeux Nutrition"
+                      alt="Furever Pets"
                     />
                   </Link>
                 </div>
@@ -62,7 +62,7 @@ export default function Navbar() {
 
                   {user ? (
                     <Menu as="div" className="ml-3 relative">
-                      <div>
+                      <div className="flex items-center gap-2">
                         <Menu.Button className="bg-white flex text-sm rounded-full ">
                           <span className="sr-only">Open user menu</span>
                           <img
@@ -71,6 +71,9 @@ export default function Navbar() {
                             alt=""
                           />
                         </Menu.Button>
+                        <span className="cursor-pointer">
+                          {user.displayName}
+                        </span>
                       </div>
                       <Transition
                         as={Fragment}
