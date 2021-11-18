@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/Layout";
-import { FaSearch } from "react-icons/fa";
 import PetCard from "../components/PetCard";
 
 const pets = [
@@ -30,7 +29,7 @@ const pets = [
   },
 ];
 
-const Adopt = () => {
+const Adopt = ({ getPets }) => {
   return (
     <Layout>
       <div className="Adopt relative w-screen h-full">

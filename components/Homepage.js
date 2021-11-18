@@ -33,7 +33,7 @@ const Homepage = () => {
                 href="https://mailchi.mp/70538d956382/furever-pets"
               >
                 <button className="text-xl relative font-medium z-10 lg:text-2xl px-6 lg:px-8 text-black bg-white rounded-full h-[55px] md:h-[64px]  hover:shadow-xl active:scale-90 transition duration-150">
-                  Learn More
+                  Join Us
                 </button>
               </a>
             </div>

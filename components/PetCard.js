@@ -1,4 +1,5 @@
 import React from "react";
+import { FaHeart } from "react-icons/fa";
 
 const PetCard = ({ pet }) => {
   return (
@@ -9,8 +10,8 @@ const PetCard = ({ pet }) => {
           src={pet.img}
           alt=""
         />
-        <img
-          className="absolute top-8 left-8 cursor-pointer"
+        <FaHeart
+          className="absolute text-white hover:text-pink-300 top-8 left-8 text-2xl cursor-pointer"
           src="/images/heart.svg"
           alt=""
         />
