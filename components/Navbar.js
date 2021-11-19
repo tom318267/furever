@@ -71,7 +71,7 @@ export default function Navbar() {
                             alt=""
                           />
                         </Menu.Button>
-                        <span className="cursor-pointer">
+                        <span className="cursor-pointer text-white">
                           {user.displayName}
                         </span>
                       </div>
@@ -85,37 +85,6 @@ export default function Navbar() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                onClick={() => auth.signOut()}
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-purple-500 hover:text-white"
-                                    : "",
-                                  "block px-4 py-2 text-lg text-black"
-                                )}
-                              >
-                                Your Profile
-                              </a>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-purple-500 hover:text-white"
-                                    : "",
-                                  "block px-4 py-2 text-lg text-black"
-                                )}
-                              >
-                                Settings
-                              </a>
-                            )}
-                          </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
                               <a

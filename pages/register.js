@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Link from "next/link";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import router from "next/router";
@@ -12,28 +16,33 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const registerUser = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords don't match");
-      return;
-    }
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userAuth) => {
-        updateProfile(auth.currentUser, {
-          displayName: name,
-        }).then(async () => {
-          console.log(userAuth);
-          await setDoc(doc(db, "users", auth.currentUser.uid), {
-            name,
+
+    try {
+      if (password !== confirmPassword) {
+        alert("Passwords don't match");
+        return;
+      }
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userAuth) => {
+          updateProfile(auth.currentUser, {
+            displayName: name,
             email,
+          }).then(async () => {
+            await setDoc(doc(db, "users", auth.currentUser.uid), {
+              name,
+              email,
+            });
+            router.push("/");
           });
-          router.push("/");
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    } catch (error) {
+      console.log("Something went wrong");
+    }
   };
 
   return (

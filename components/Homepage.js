@@ -80,7 +80,7 @@ const Homepage = () => {
         <div className="flex flex-col sm:hidden justify-center items-center mt-[42px]">
           <h2 className="uppercase text-[26px]">Kid Friendly</h2>
           <div className="flex mt-[28px] overflow-scroll">
-            <img src="/images/cat1.svg" alt="" />
+            <img src="/images/cat2.svg" alt="" />
             <img src="/images/dog1.svg" alt="" />
             <img src="/images/cat2.svg" alt="" />
           </div>

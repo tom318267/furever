@@ -1,35 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
-import { auth, db, provider } from "../firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth, db } from "../firebase";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
-  const signIn = (e) => {
-    e.preventDefault();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // ...
-        router.push("/");
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
+
+  const signIn = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // ...
+          router.push("/");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } catch (error) {
+      console.log("Something went wrong");
+    }
   };
+
   return (
     <Layout>
       <div className="Login min-h-full font-asap flex flex-col justify-center py-28 sm:px-6 lg:px-8">
@@ -41,7 +38,7 @@ const Login = () => {
 
         <div className="mt-8 px-8 sm:px-0 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+            <form onSubmit={signIn} className="space-y-6">
               <div>
                 <label
                   htmlFor="email"
@@ -51,6 +48,7 @@ const Login = () => {
                 </label>
                 <div className="mt-1">
                   <input
+                    onChange={(e) => setEmail(e.target.value)}
                     id="email"
                     name="email"
                     type="email"
@@ -70,6 +68,7 @@ const Login = () => {
                 </label>
                 <div className="mt-1">
                   <input
+                    onChange={(e) => setPassword(e.target.value)}
                     id="password"
                     name="password"
                     type="password"
