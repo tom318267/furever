@@ -1,35 +1,15 @@
 import React, { useEffect } from "react";
+import { getPets } from "../actions/pets";
 import Layout from "../components/Layout";
 import PetCard from "../components/PetCard";
+import { connect } from "react-redux";
 
-const pets = [
-  {
-    name: "Charlie",
-    img: "/images/dog8.jpeg",
-  },
-  {
-    name: "Jake",
-    img: "/images/dog2.jpeg",
-  },
-  {
-    name: "Diesel",
-    img: "/images/dog9.jpeg",
-  },
-  {
-    name: "Sammy",
-    img: "/images/cat1.jpeg",
-  },
-  {
-    name: "Angel",
-    img: "/images/cat5.jpeg",
-  },
-  {
-    name: "Buddy",
-    img: "/images/dog3.jpeg",
-  },
-];
+const Adopt = ({ pets, getPets }) => {
+  useEffect(() => {
+    getPets();
+  }, []);
 
-const Adopt = ({ getPets }) => {
+  console.log(pets);
   return (
     <Layout>
       <div className="Adopt relative w-screen h-full">
@@ -48,7 +28,7 @@ const Adopt = ({ getPets }) => {
 
         <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center items-center gap-8 py-[38px] mx-[15px]">
           {pets.map((pet) => (
-            <PetCard pet={pet} />
+            <PetCard key={pet.name} pet={pet} />
           ))}
         </div>
       </div>
@@ -56,4 +36,8 @@ const Adopt = ({ getPets }) => {
   );
 };
 
-export default Adopt;
+const mapStateToProps = (state) => ({
+  pets: state.pets.pets,
+});
+
+export default connect(mapStateToProps, { getPets })(Adopt);

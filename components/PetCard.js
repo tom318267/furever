@@ -7,7 +7,7 @@ const PetCard = ({ pet }) => {
       <div className="bg-white relative p-4 w-full rounded-lg">
         <img
           className="w-full h-[250px] sm:h-[160px] object-cover"
-          src={pet.img}
+          src={pet.imageUrl}
           alt=""
         />
         <FaHeart
