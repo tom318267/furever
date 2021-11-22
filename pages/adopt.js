@@ -9,8 +9,9 @@ const Adopt = ({ pets, getPets }) => {
     getPets();
   }, []);
 
-  console.log(pets);
-  return (
+  return !pets ? (
+    <h1>Loading...</h1>
+  ) : (
     <Layout>
       <div className="Adopt relative w-screen h-full">
         <div className="hidden sm:block sm:absolute sm:right-0 sm:top-20">

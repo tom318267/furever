@@ -4,13 +4,21 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
+import { connect } from "react-redux";
+import { signOutUser } from "../actions/user";
+import { useRouter } from "next/dist/client/router";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+const Navbar = ({ signOutUser }) => {
   const [user] = useAuthState(auth);
+
+  const router = useRouter();
+
   return (
     <Disclosure as="nav" className="shadow font-asap">
       {({ open }) => (
@@ -61,49 +69,16 @@ export default function Navbar() {
                   </Link>
 
                   {user ? (
-                    <Menu as="div" className="ml-3 relative">
-                      <div className="flex items-center gap-2">
-                        <Menu.Button className="bg-white flex text-sm rounded-full ">
-                          <span className="sr-only">Open user menu</span>
-                          <img
-                            className="h-8 w-8 rounded-full"
-                            src="/images/user1.svg"
-                            alt=""
-                          />
-                        </Menu.Button>
-                        <span className="cursor-pointer text-white">
-                          {user.displayName}
-                        </span>
-                      </div>
-                      <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                      >
-                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          <Menu.Item>
-                            {({ active }) => (
-                              <a
-                                onClick={() => auth.signOut()}
-                                href="#"
-                                className={classNames(
-                                  active
-                                    ? "bg-purple-500 hover:text-white"
-                                    : "",
-                                  "block px-4 py-2 text-lg text-black"
-                                )}
-                              >
-                                Sign out
-                              </a>
-                            )}
-                          </Menu.Item>
-                        </Menu.Items>
-                      </Transition>
-                    </Menu>
+                    <a
+                      onClick={() => {
+                        signOutUser();
+                        router.push("/");
+                        toast.success("Your signed out!");
+                      }}
+                      className="uppercase cursor-pointer link border-transparent text-white hover:border-white inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium"
+                    >
+                      Sign Out
+                    </a>
                   ) : (
                     <Link href="/login">
                       <a className="uppercase link border-transparent text-white hover:border-white inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium">
@@ -148,4 +123,6 @@ export default function Navbar() {
       )}
     </Disclosure>
   );
-}
+};
+
+export default connect(null, { signOutUser })(Navbar);

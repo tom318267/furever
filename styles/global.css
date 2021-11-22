@@ -1,3 +1,19 @@
+:root {
+  --toastify-icon-color-success: #8b5cf6 !important;
+
+  --toastify-icon-color-success: var(--toastify-icon-color-success);
+
+  --toastify-color-progress-success: #8b5cf6 !important;
+
+  --toastify-color-success: #8b5cf6 !important;
+
+  --toastify-color-success: var(--toastify-color-success);
+
+  --toastify-color-error: red !important;
+
+  --toastify-icon-color-error: red !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -78,5 +94,10 @@
 
   .Login {
     background: linear-gradient(180deg, #94daff 0%, #cfeeff 100%), #ffffff;
+  }
+
+  .toastBody {
+    font-family: "Asap Condensed", sans-serif !important;
+    color: black;
   }
 }

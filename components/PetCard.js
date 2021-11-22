@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 
 const PetCard = ({ pet }) => {
+  const [like, setLike] = useState(false);
+  const [selectedDog, setSelectedDog] = useState(null);
+  console.log(selectedDog);
   return (
     <div className="PetCard w-full font-asap rounded-lg">
       <div className="bg-white relative p-4 w-full rounded-lg">
@@ -11,7 +14,13 @@ const PetCard = ({ pet }) => {
           alt=""
         />
         <FaHeart
-          className="absolute text-white hover:text-pink-300 top-8 left-8 text-2xl cursor-pointer"
+          onClick={() => {
+            setLike(!like);
+            setSelectedDog(pet);
+          }}
+          className={`absolute ${
+            like ? "text-pink-300" : "text-white"
+          } text-white top-8 left-8 text-2xl cursor-pointer`}
           src="/images/heart.svg"
           alt=""
         />

@@ -1,47 +1,32 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Link from "next/link";
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { auth, db } from "../firebase";
-import { doc, setDoc } from "firebase/firestore";
-import router from "next/router";
+import { connect } from "react-redux";
+import { register } from "../actions/user";
+import { useRouter } from "next/dist/client/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Register = () => {
+const Register = ({ register }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const registerUser = async (e) => {
-    e.preventDefault();
+  const router = useRouter();
 
+  const registerUser = (e) => {
+    e.preventDefault();
     try {
       if (password !== confirmPassword) {
-        alert("Passwords don't match");
-        return;
+        toast.error("Passwords don't match!");
+      } else {
+        register(name, email, password);
+        router.push("/");
+        toast.success(`Welcome to FureverPets ${name}`);
       }
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userAuth) => {
-          updateProfile(auth.currentUser, {
-            displayName: name,
-            email,
-          }).then(async () => {
-            await setDoc(doc(db, "users", auth.currentUser.uid), {
-              name,
-              email,
-            });
-            router.push("/");
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     } catch (error) {
-      console.log("Something went wrong");
+      console.log(error.message);
     }
   };
 
@@ -56,12 +41,7 @@ const Register = () => {
 
         <div className="mt-8 px-8 sm:px-0 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form
-              onSubmit={registerUser}
-              className="space-y-6"
-              action="#"
-              method="POST"
-            >
+            <form onSubmit={(e) => registerUser(e)} className="space-y-6">
               <div>
                 <label
                   htmlFor="name"
@@ -146,7 +126,6 @@ const Register = () => {
 
               <div>
                 <button
-                  onClick={registerUser}
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-xl font-medium text-white bg-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
@@ -170,4 +149,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default connect(null, { register })(Register);

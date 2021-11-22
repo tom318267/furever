@@ -1,29 +1,26 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
-import { auth, db } from "../firebase";
-import { useRouter } from "next/router";
 import Link from "next/link";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signIn } from "../actions/user";
+import { connect } from "react-redux";
+import { useRouter } from "next/dist/client/router";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Login = () => {
+const Login = ({ signIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const router = useRouter();
 
-  const signIn = async () => {
+  const loginUser = (e) => {
+    e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          // ...
-          router.push("/");
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+      signIn(email, password);
+      router.push("/");
+      toast.success("Welcome Back!");
     } catch (error) {
-      console.log("Something went wrong");
+      console.log(error.message);
     }
   };
 
@@ -38,7 +35,7 @@ const Login = () => {
 
         <div className="mt-8 px-8 sm:px-0 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form onSubmit={signIn} className="space-y-6">
+            <form onSubmit={(e) => loginUser(e)} className="space-y-6">
               <div>
                 <label
                   htmlFor="email"
@@ -130,4 +127,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default connect(null, { signIn })(Login);
