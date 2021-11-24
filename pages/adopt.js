@@ -21,16 +21,17 @@ const Adopt = ({ pets, getPets }) => {
             alt=""
           />
         </div>
-        <div className="flex flex-col justify-center items-center pt-40 font-asap text-white font-medium">
-          <h1 className="adopt-heading text-5xl md:text-6xl mb-[22px]">
-            Adopt a pet
-          </h1>
-        </div>
-
-        <div className="grid grid-cols sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center items-center gap-8 py-[38px] mx-[15px]">
-          {pets.map((pet) => (
-            <PetCard key={pet.name} pet={pet} />
-          ))}
+        <div className="font-quest py-20 bg-grayBackground">
+          <div className="flex flex-col justify-center items-center pt-28 font-asap text-white font-medium">
+            <h1 className="adopt-heading text-5xl md:text-6xl mb-[22px]">
+              Adopt a pet
+            </h1>
+          </div>
+          <div className="flex flex-col items-center sm:flex-row sm:flex-wrap sm:items-stretch sm:justify-center">
+            {pets.map((pet) => (
+              <PetCard key={pet.id} pet={pet} />
+            ))}
+          </div>
         </div>
       </div>
     </Layout>

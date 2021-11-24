@@ -40,6 +40,7 @@ export const userReducer = (state = initialState, action) => {
         user: null,
         error: action.payload,
       };
+
     default:
       return state;
   }
