@@ -1,4 +1,9 @@
-import { GET_PETS } from "../actions/types";
+import {
+  GET_PET,
+  GET_PETS,
+  GET_PETS_FAIL,
+  GET_PET_FAIL,
+} from "../actions/types";
 
 export const initialState = {
   pets: [],
@@ -15,6 +20,22 @@ export const petReducer = (state = initialState, action) => {
         ...state,
         pets: action.payload,
         loading: false,
+      };
+    case GET_PETS_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case GET_PET:
+      return {
+        ...state,
+        petInfo: action.payload,
+        loading: false,
+      };
+    case GET_PET_FAIL:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

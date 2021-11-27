@@ -96,6 +96,10 @@
     background: linear-gradient(180deg, #94daff 0%, #cfeeff 100%), #ffffff;
   }
 
+  .PetPage {
+    background: linear-gradient(180deg, #b983ff 0%, #f8f6fc 100%);
+  }
+
   .toastBody {
     font-family: "Asap Condensed", sans-serif !important;
     color: black;

@@ -1,0 +1,21 @@
+{
+  "petFriendly": [
+    {
+      "img": "/images/cat6.svg",
+      "name": "Tony"
+    },
+    {
+      "img": "/images/dog12.svg"
+    }
+  ],
+
+  "asapHome": [
+    {
+      "img": "/images/cat13.svg"
+    },
+
+    {
+      "img": "/images/dog14.svg"
+    }
+  ]
+}

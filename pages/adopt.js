@@ -1,17 +1,9 @@
-import React, { useEffect } from "react";
-import { getPets } from "../actions/pets";
+import React from "react";
 import Layout from "../components/Layout";
 import PetCard from "../components/PetCard";
-import { connect } from "react-redux";
 
-const Adopt = ({ pets, getPets }) => {
-  useEffect(() => {
-    getPets();
-  }, []);
-
-  return !pets ? (
-    <h1>Loading...</h1>
-  ) : (
+const Adopt = ({ pets }) => {
+  return (
     <Layout>
       <div className="Adopt relative w-screen h-full">
         <div className="hidden sm:block sm:absolute sm:right-0 sm:top-20">
@@ -23,9 +15,12 @@ const Adopt = ({ pets, getPets }) => {
         </div>
         <div className="font-quest py-20 bg-grayBackground">
           <div className="flex flex-col justify-center items-center pt-28 font-asap text-white font-medium">
-            <h1 className="adopt-heading text-5xl md:text-6xl mb-[22px]">
+            <h1 className="adopt-heading text-5xl lg:text-7xl md:text-6xl mb-[22px]">
               Adopt a pet
             </h1>
+            <p className="text-xl md:text-2xl lg:text-3xl mb-5 font-bellota">
+              Help us find these loving pets a home!
+            </p>
           </div>
           <div className="flex flex-col items-center sm:flex-row sm:flex-wrap sm:items-stretch sm:justify-center">
             {pets.map((pet) => (
@@ -38,8 +33,15 @@ const Adopt = ({ pets, getPets }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  pets: state.pets.pets,
-});
+export default Adopt;
 
-export default connect(mapStateToProps, { getPets })(Adopt);
+export async function getServerSideProps() {
+  const res = await fetch("https://furever-pets-api.herokuapp.com/pets");
+  const data = await res.json();
+
+  return {
+    props: {
+      pets: data,
+    },
+  };
+}

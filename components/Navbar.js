@@ -1,5 +1,4 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Disclosure } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -62,9 +61,9 @@ const Navbar = ({ signOutUser }) => {
                     </a>
                   </Link>
 
-                  <Link href="/pricing">
+                  <Link href="/contact">
                     <a className="uppercase link border-transparent text-white hover:border-white inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium">
-                      Local Shelters
+                      Contact
                     </a>
                   </Link>
 

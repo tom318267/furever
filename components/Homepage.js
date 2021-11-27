@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
 import Link from "next/link";
 
 const Homepage = () => {
+  const [petData, setPetData] = useState({});
+
+  console.log(petData);
+
+  useEffect(() => {
+    fetch("/homepagePets.json")
+      .then((res) => res.json())
+      .then((data) => setPetData(data));
+  }, []);
   return (
     <Layout>
       <div className="Homepage w-screen sm:h-screen pb-24 relative font-asap">
@@ -71,9 +80,9 @@ const Homepage = () => {
         <div className="flex flex-col sm:hidden justify-center items-center mt-[42px]">
           <h2 className="uppercase text-[26px] sm:hidden">Asap home needed</h2>
           <div className="flex mt-[28px] overflow-scroll">
-            <img src="/images/cat1.svg" alt="" />
-            <img src="/images/dog1.svg" alt="" />
-            <img src="/images/cat2.svg" alt="" />
+            <img src="/images/cat7.svg" alt="" />
+            <img src="/images/dog15.svg" alt="" />
+            <img src="/images/dog16.svg" alt="" />
           </div>
         </div>
 
@@ -89,9 +98,9 @@ const Homepage = () => {
         <div className="flex flex-col sm:hidden justify-center items-center mt-[42px]">
           <h2 className="uppercase text-[26px]">Suited for small homes</h2>
           <div className="flex mt-[28px] overflow-scroll">
-            <img src="/images/cat1.svg" alt="" />
-            <img src="/images/dog1.svg" alt="" />
-            <img src="/images/cat2.svg" alt="" />
+            <img src="/images/cat8.svg" alt="" />
+            <img src="/images/cat9.svg" alt="" />
+            <img src="/images/dog18.svg" alt="" />
           </div>
         </div>
 
